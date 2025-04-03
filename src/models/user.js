@@ -23,8 +23,19 @@ const User = sequelize.define('User', {
   role: {
     type: DataTypes.ENUM('admin', 'user'),
     defaultValue: 'user',
+  },
+  createdAt: {  // Changed from created_at
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
+  },
+  updatedAt: {  // Changed from updated_at
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW,
   }
 });
 
-sequelize.sync();
+// Force sync to recreate the table with new column names
+sequelize.sync({ force: true });
 module.exports = User;
